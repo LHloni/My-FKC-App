@@ -6,14 +6,14 @@ const Posts = require('../models/posts');
 router.get('/logout',async (req,res) => {
     //if not logged in when session not set 
     if(!req.session.user){
-        console.log({message:"not logged in"});
+        res.json({message:"not logged in"});
     }else{
         //destroy session
         req.session.destroy();
-        //redirect user
-        res.redirect('/');
-
     }
+
+     //redirect user
+     res.redirect('/');
     
 });
 //get all posts
@@ -23,7 +23,7 @@ router.get('/',async (req,res) => {
             //add a limit for the post next time
             const getPosts = await Posts.find((err,docs) => {
                 if( err || !docs) {
-                    res.json({message:"Not data"});
+                    res.json({message:"No data"});
                 } else {    
                     return docs;
                 };
@@ -37,26 +37,42 @@ router.get('/',async (req,res) => {
         }
  
 });
-//get specific post
-router.get('/:postId',async (req,res) => {
-    try{
-        const getPost = await Posts.findById(req.params.postId);
-        res.json(getPost);
-    }catch(err){
-        res.json({message:err});
-    }
+//get all my post show 5 at a time using a limit
+router.get('/getMyPost',async (req,res) => {
+        //check if user is logged in or not
+        if(req.session.user){
+            try{
+                //add a limit for the post next time
+                const getMyPosts = await Posts.find({userId:req.session.user._id},(err,docs) => {
+                    if( err || !docs) {
+                        res.json({message:"No data"});
+                    } else {    
+                        return docs;
+                    };
+                });
+                if(getMyPosts != null){
+                    res.json(getMyPosts);
+                }
+                
+            }catch(err){
+                res.json({message:err});
+            }
+        }else{
+            res.json({message:"not logged in"});
+        }
+        
 });
 //Upload a post
 router.post('/uploadpost',async (req,res) => {
     //check if logged in
     if(req.session.user){
-        if(!isEmpty(req.body.userId) &&
+        if(!isEmpty(req.session.user._id) &&
         !isEmpty(req.body.title) &&
         !isEmpty(req.body.productOrService) &&
         !isEmpty(req.body.price) &&
         !isEmpty(req.body.imageUrl)){
         const posts = new Posts({
-            userId:req.body.userId,
+            userId:req.session.user._id,
             title:req.body.title,
             productOrService:req.body.productOrService,
             operatingHoursForService:req.body.operatingHoursForService,
@@ -82,7 +98,6 @@ router.post('/uploadpost',async (req,res) => {
         } 
         }else{
             res.json({status:"Not Uploaded",
-            userId:req.body.userId,
             title:req.body.title,
             productOrService:req.body.productOrService,
             price:req.body.price,
