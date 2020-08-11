@@ -1,12 +1,21 @@
 const mongoose = require('mongoose');
 
 const NotificationsSchema = mongoose.Schema({
-    message:{
+    idOfPost:{
         type:String,
         required:true
     },idOfUser:{
         type:String,
         required:true
+    },message:{
+        type:String,
+        required:true
+    },read:{
+        type:Boolean,
+        default:false
+    },dateTime:{
+        type:Date,
+        required:Date.now
     }
 });
 

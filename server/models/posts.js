@@ -1,24 +1,36 @@
 const mongoose = require('mongoose');
 
 const PostSchema = mongoose.Schema({
-    title:{
+    userId:{
         type:String,
         required:true
-    },type:{
+    },title:{
         type:String,
         required:true
-    },price:{
-        type:Number,
+    },productOrService:{
+        type:String,
         required:true
-    },imageUrl:{
+    },operatingHoursForService:{
         type:String,
         required:false
-    },availability:{
+    },price:{
         type:String,
         required:true
+    },description:{
+        type:String,
+        required:false
+    },imageUrl:{
+        type:[String],
+        required:true
+    },availability:{
+        type:Boolean,
+        default:true
     },location:{
         type:String,
-        required:true
+        required:false
+    },dateTime:{
+        type:Date,
+        default:Date.now
     }
 });
 
