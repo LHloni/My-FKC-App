@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>10</x>
+      <y>520</y>
+      <w>75</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>LOGGED_IN_USER</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>410</x>
+      <y>115</y>
+      <w>95</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>NOT_LOGGED_IN_USER</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>400</x>
+      <y>190</y>
+      <w>125</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>LANDING_PAGE
+-
+ACTIONS (4)
+-
+- View Post
+
+- Contact User On Whatsapp
+- Register
+- Login
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>545</x>
+      <y>195</y>
+      <w>115</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>LANDING_PAGE
+-
+ACTIONS (4)
+-
+- View Post
+- View Notifications
+- go to my wall
+- search post
+- Create Post
+- logout
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>590</x>
+      <y>150</y>
+      <w>15</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>455</x>
+      <y>145</y>
+      <w>15</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>540</x>
+      <y>345</y>
+      <w>125</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>NOTIFICATIONS
+-
+Actions
+-
+- View Notifications: (message)
+- click notification link to go to post</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>595</x>
+      <y>270</y>
+      <w>15</w>
+      <h>85</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1145</x>
+      <y>455</y>
+      <w>145</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>MY_POSTS
+-
+Actions
+-
+- View Post:(image,contacts,like,
+comments,description,location,
+availability,date/timeOfPost)
+
+- update my post
+- Contact User On Whatsapp
+- Like Post
+- Comment On Post
+- delete post</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>865</x>
+      <y>350</y>
+      <w>135</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>CREATE_POST
+-
+Actions
+-
+- upload pic (IINM)
+- add description
+- add price
+- select_ProductOrService
+- add openingHours If Its a Service
+- select Availability
+- location (AWDIFY/IINM)
+- date/time (AWDIFY)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1140</x>
+      <y>590</y>
+      <w>150</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>UPDATE_MY_POSTS
+-
+Actions
+-
+- update pic (IINM)
+- update description (IINM)
+- update price (IINM)
+- select_ProductOrService (IINM)
+- update openingHours If Its a Service (IINM)
+- update Availability
+- update location (AWDIFY/IINM)
+- update date/time (AWDIFY)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1175</x>
+      <y>355</y>
+      <w>80</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>MY_WALL
+-
+Actions
+-
+- view my posts
+- update my posts
+- update my profile
+- </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>595</x>
+      <y>270</y>
+      <w>345</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>670.0;160.0;670.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>715</x>
+      <y>0</y>
+      <w>85</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>AWDIFY
+bg=blue
+App Will Do It For You</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>715</x>
+      <y>50</y>
+      <w>85</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>IINM
+bg=blue
+It Is Not Mandatory</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>595</x>
+      <y>270</y>
+      <w>630</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>1240.0;170.0;1240.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>685</x>
+      <y>355</y>
+      <w>145</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>POST
+-
+Actions
+-
+- View :(image,contacts,like,
+comments,description,location,
+availability,date/timeOfPost)
+
+- Contact User On Whatsapp
+- Like Post
+- Comment On Post</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1210</x>
+      <y>415</y>
+      <w>15</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1210</x>
+      <y>555</y>
+      <w>15</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1250</x>
+      <y>380</y>
+      <w>110</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>200.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1350</x>
+      <y>345</y>
+      <w>120</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>UPDATE_DETAILS
+-
+Actions
+-
+- update name
+- update email
+- update password
+- update whatsapp number</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>595</x>
+      <y>270</y>
+      <w>170</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>320.0;170.0;320.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>490</x>
+      <y>30</y>
+      <w>80</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>USER_START_HERE</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>105</x>
+      <y>345</y>
+      <w>110</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>LOGIN
+-
+Actions
+-
+- email or whatsapp number
+- password
+- forgot password</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>250</x>
+      <y>345</y>
+      <w>110</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Register
+-
+Actions
+-
+- enter name
+- whatsapp numbers or email
+- password
+- confirm password</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>395</x>
+      <y>340</y>
+      <w>125</w>
+      <h>85</h>
+    </coordinates>
+    <panel_attributes>POST
+-
+Actions
+-
+- View :(image,contacts,like,
+comments,description,location,
+availability,date/timeOfPost)
+
+- Contact User On Whatsapp
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>0</x>
+      <y>445</y>
+      <w>95</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>RESET_PASSWORD
+-
+Actions
+-
+- password
+- confirm password</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>555</x>
+      <y>120</y>
+      <w>75</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>LOGGED_IN_USER</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>255</x>
+      <y>440</y>
+      <w>95</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>VERIFICATION_CODE
+-
+Actions
+-
+- enter verification code</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>295</x>
+      <y>410</y>
+      <w>15</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>155</x>
+      <y>275</y>
+      <w>315</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;140.0;10.0;70.0;610.0;70.0;610.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>275</y>
+      <w>170</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;140.0;10.0;70.0;320.0;70.0;320.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>455</x>
+      <y>275</y>
+      <w>15</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>295</x>
+      <y>490</y>
+      <w>15</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>40</x>
+      <y>400</y>
+      <w>130</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;40.0;240.0;40.0;240.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>265</x>
+      <y>510</y>
+      <w>75</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>LOGGED_IN_USER</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>40</x>
+      <y>495</y>
+      <w>15</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>125</x>
+      <y>440</y>
+      <w>75</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>LOGGED_IN_USER</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>155</x>
+      <y>400</y>
+      <w>15</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>715</x>
+      <y>485</y>
+      <w>75</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>COMMENTS
+-
+Actions
+-
+- comment</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>745</x>
+      <y>455</y>
+      <w>15</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1030</x>
+      <y>360</y>
+      <w>95</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>SEARCH_POSTS
+-
+Actions
+-
+- search posts
+- click post result 
+  to go to post </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>595</x>
+      <y>270</y>
+      <w>480</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>940.0;180.0;940.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
