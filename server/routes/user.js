@@ -97,9 +97,90 @@ router.post('/register',async (req,res) => {
 
 });
 
+//update users profile
+router.patch('/updateProfile',async (req,res) => {
+    if(req.session.user){
+
+            try{
+               
+                if(req.session.user != null){
+
+                    //retrive post to compare and see what needs to be updated
+                    //also can data in a session variable be modified ?
+                    const getUser = await User.findOne({_id:req.session.user._id},(err,docs) => {
+                        if( err || !docs) {
+                            res.json({message:"No data/user found"});
+                        } else {    
+                            return docs;
+                        };
+                    });
+
+                    if(getUser != null){
+                        //update new value otherwise return old values
+                    //make copy of object since javascript doesnt pass objects by value
+                    let objCopy = JSON.parse(JSON.stringify(getUser));
+
+                    var objForUpdatingUser = checkWhichValueNeededToUpdate(objCopy,req.body);
+                               
+                               if(JSON.stringify(objForUpdatingUser) != JSON.stringify(getUser)){
+                                            try{
+                                            //images must have a collection of their own
+                                            // add images here later
+                                                const updatedUser = await User.updateOne({_id:req.session.user._id},{$set:{
+                                                    timeDate:Date.now(),
+                                                    name:objForUpdatingUser.name,
+                                                    email:objForUpdatingUser.email,
+                                                    password:objForUpdatingUser.password,
+                                                    number:objForUpdatingUser.number
+                                                    
+                                                }},(err,docs) => {
+                                                    if( err || !docs) {
+                                                        res.json({message:"No data"});
+                                                    } else {    
+                                                        res.json({message:"user updated"});
+                                                    
+                                                    };
+                                                    
+                                                });
+                            
+                                            }catch(err){
+                                                res.json({message:err});
+                                            }
+                                }else{
+                                    res.json({message:"No Update Since these no change"});
+                                }
+                    }
+
+                    
+                    
+                       
+                    }else{
+                        res.json({message:"User Not Found"});
+                    }
+                    
+                }catch(err){
+                    
+                    res.json({message:err});
+                }
+    }else{
+        res.json({message:"You Not Logged In"});
+    }
+  
+});
+
+//helper functions
 function isEmpty(val){
     return (val === undefined || val == null || val.length <= 0) ? true : false;
 }
 
+function checkWhichValueNeededToUpdate(val1Post,val2Post){
+    //update this function late by using a for each loop
+   if(!isEmpty(val2Post.name) && !(val1Post.name == val2Post.name)){  val1Post.name = val2Post.name;};
+   if(!isEmpty(val2Post.email) && !(val1Post.email == val2Post.email)) { val1Post.email = val2Post.email;};
+   if(!isEmpty(val2Post.password) && !(val1Post.password == val2Post.password)){val1Post.password = val2Post.password;};
+   if(!isEmpty(val2Post.number) && !(val1Post.number == val2Post.number)) {val1Post.number = val2Post.number;};
+ 
+   return val1Post;
+}
 
 module.exports = router;

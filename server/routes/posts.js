@@ -62,7 +62,7 @@ router.get('/getMyPost',async (req,res) => {
         }
         
 });
-//Upload a post
+//create a post
 router.post('/uploadpost',async (req,res) => {
     //check if logged in
     if(req.session.user){
@@ -221,6 +221,10 @@ router.patch('/updatePost',async (req,res) => {
         res.json({message:"You Not Logged In"});
     }
 });
+
+//liking a post
+
+//commenting on a post
 
 //helper functions
 function isEmpty(val){
