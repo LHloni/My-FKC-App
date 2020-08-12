@@ -37,7 +37,7 @@ router.get('/',async (req,res) => {
         }
  
 });
-//get all my post show 5 at a time using a limit
+//get all my post show 5 at a time using a limit next time
 router.get('/getMyPost',async (req,res) => {
         //check if user is logged in or not
         if(req.session.user){
@@ -85,7 +85,7 @@ router.post('/uploadpost',async (req,res) => {
         try{
             const savePosts = await posts.save((err,docs) => {
                 if( err || !docs) {
-                    res.json({message:"Not data"});
+                    res.json({message:"No data"});
                 } else {    
                     res.json({message:"data uploaded"});
                     return docs;
@@ -110,29 +110,137 @@ router.post('/uploadpost',async (req,res) => {
         res.json({message:"You Not Logged In"});
     }
 });
-// delete a specific post
-router.delete('/:postId',async (req,res) => {
-    try{
-        const removedPost = await Posts.remove({_id:req.params.postId});
-        res.json(removedPost);
-    }catch(err){
-        res.json({message:err});
+// delete my specified post
+router.delete('/deletePost',async (req,res) => {
+    //check if logged in
+    if(req.session.user){
+        try{
+            if(!isEmpty(req.session.user._id) && !isEmpty(req.body._id)){
+                
+                if(req.session.user._id == req.body.userId){
+                    const removedPost = await Posts.deleteOne({_id:req.body._id},(err,docs) => {
+                        if( err || !docs) {
+                            res.json({message:"No data"});
+                        } else {    
+                            res.json({message:"post deleted"});
+                            
+                            return docs;
+                        };
+                        
+                    });
+                }else{
+                    res.json({message:"Failed to deleted Post not yours"});
+                }
+
+            }else{
+                res.json({message:"User or post not found"});
+            }
+            
+        }catch(err){
+            res.json({message:err});
+        }
+    }else{
+        res.json({message:"You Not Logged In"});
     }
 });
 // update a specific post
-router.patch('/:postId',async (req,res) => {
-    try{
-        const updatedPost = await Posts.updateOne({_id:req.params.postId},{$set:{
-            title:req.body.title
-        }});
-        res.json(updatedPost);
-    }catch(err){
-        res.json({message:err});
+router.patch('/updatePost',async (req,res) => {
+     //check if logged in
+     if(req.session.user){
+        //check if user Id is equal to post user id
+        if(!isEmpty(req.session.user._id) && !isEmpty(req.body.userId)){
+                //check if logged in user is the user who owns post
+            if(req.session.user._id == req.body.userId){
+
+                try{
+                    //retrive post to compare and see what needs to be updated
+                    const getSpecifiedPosts = await Posts.findOne({userId:req.session.user._id},(err,docs) => {
+                        if( err || !docs) {
+                            res.json({message:"No data"});
+                        } else {    
+                            return docs;
+                        };
+                    });
+
+                    if(getSpecifiedPosts != null){
+                        //update new value otherwise return old values
+                        //make copy of object since javascript doesnt pass objects by value
+                        let objCopy = JSON.parse(JSON.stringify(getSpecifiedPosts));
+
+                        var objForUpdatingPost = checkWhichValueNeededToUpdate(objCopy,req.body);
+                     
+                                   if(JSON.stringify(objForUpdatingPost) != JSON.stringify(getSpecifiedPosts)){
+                                                try{
+                                                //images must have a collection of their own
+
+                                                    const updatedPost = await Posts.updateOne({_id:req.body._id,userId:req.body.userId},{$set:{
+                                                        dateTime:Date.now(),
+                                                        location:objForUpdatingPost.location,
+                                                        description:objForUpdatingPost.description,
+                                                        price:objForUpdatingPost.price,
+                                                        productOrService:objForUpdatingPost.productOrService,
+                                                        operatingHoursForService:objForUpdatingPost.operatingHoursForService,
+                                                        title:objForUpdatingPost.title,
+                                                        availability:objForUpdatingPost.availability,
+                                                        imageUrl:objForUpdatingPost.imageUrl
+                                                    }},(err,docs) => {
+                                                        if( err || !docs) {
+                                                            res.json({message:"No data"});
+                                                        } else {    
+                                                            res.json({message:"post update"});
+                                                        
+                                                        };
+                                                        
+                                                    });
+                                
+                                                }catch(err){
+                                                    res.json({message:err});
+                                                }
+                                    }else{
+                                        res.json({message:"No Update"});
+                                    }
+                        
+                           
+                        }else{
+                            res.json({message:"Post Not Found"});
+                        }
+                        
+                    }catch(err){
+                        
+                        res.json({message:err});
+                    }
+
+            }else{
+                res.json({message:"Failed to Update Post its not yours"});
+            }
+
+        }else{
+            res.json({message:"User or post not found"});
+        }
+    }else{
+        res.json({message:"You Not Logged In"});
     }
 });
 
+//helper functions
 function isEmpty(val){
     return (val === undefined || val == null || val.length <= 0) ? true : false;
 }
+
+function checkWhichValueNeededToUpdate(val1Post,val2Post){
+     //update this function late by using a for each loop
+    if(!isEmpty(val2Post.imageUrl) && !(val1Post.imageUrl == val2Post.imageUrl)){  val1Post.imageUrl = val2Post.imageUrl;};
+    if(!isEmpty(val2Post.availability) && !(val1Post.availability != val2Post.availability)) { val1Post.availability = val2Post.availability;};
+    if(!isEmpty(val2Post.title) && !(val1Post.title == val2Post.title)){val1Post.title = val2Post.title;};
+    if(!isEmpty(val2Post.productOrService) && !(val1Post.productOrService == val2Post.productOrService)) {val1Post.productOrService = val2Post.productOrService;};
+    if(!isEmpty(val2Post.operatingHoursForService) && !(val1Post.operatingHoursForService == val2Post.operatingHoursForService)){val1Post.operatingHoursForService = val2Post.operatingHoursForService;};
+    if(!isEmpty(val2Post.price) && !(val1Post.price == val2Post.price)) {val1Post.price = val2Post.price;};
+    if(!isEmpty(val2Post.description) && !(val1Post.description == val2Post.description)) {val1Post.description = val2Post.description;};
+    if(!isEmpty(val2Post.location) && !(val1Post.location == val2Post.location)) {val1Post.location = val2Post.location;};
+
+    return val1Post;
+}
+
+
 
 module.exports = router;
