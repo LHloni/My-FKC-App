@@ -17,10 +17,7 @@ const CommentsSchema = mongoose.Schema({
     idOfPost:{
         type:String,
         required:true
-    },UIMC:{
-        type:[UserCommentSchema],
-        required:true
-    }
+    },UIMC:[{type: UserCommentSchema, ref: 'usercomments'}]
  
 });
 

@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Posts = require('../models/posts');
+const Likes = require('../models/likes');
+const Comments = require('../models/comments');
 
 //logout
 router.get('/logout',async (req,res) => {
@@ -87,7 +89,12 @@ router.post('/uploadpost',async (req,res) => {
                 if( err || !docs) {
                     res.json({message:"No data"});
                 } else {    
-                    res.json({message:"data uploaded"});
+                    //create comments schema and likes schema
+                    if(createLikesSchema(docs._id,res) && createCommentsSchema(docs._id,res)){
+                        res.json({message:"data uploaded"});
+                    }else{
+                        res.json({message:"Not Uploaded"});
+                    }
                     return docs;
                 };
                 
@@ -226,6 +233,50 @@ router.patch('/updatePost',async (req,res) => {
 
 //commenting on a post
 
+
+//functions for create comments schema and likes schema
+
+async function createCommentsSchema(idOfPostVal){
+
+    const comments = new Comments({
+        idOfPost:idOfPostVal 
+    });
+
+    try{
+        const saveComments = await comments.save((err,docs) => {
+            if( err || !docs) {
+                return false;
+            } else {    
+                return true;
+            };
+            
+        });
+    
+    }catch(err){
+        return false;
+    } 
+};
+
+async function createLikesSchema(idOfPostVal){
+
+    const likes = new Likes({
+        idOfPost:idOfPostVal 
+    });
+
+    try{
+        const saveLikes = await likes.save((err,docs) => {
+            if( err || !docs) {
+                return false;
+            } else {    
+                return true;
+            };
+            
+        });
+    
+    }catch(err){
+        return false;
+    } 
+};
 //helper functions
 function isEmpty(val){
     return (val === undefined || val == null || val.length <= 0) ? true : false;

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+//enums can also be used in mongoose
 const PostSchema = mongoose.Schema({
     userId:{
         type:String,
