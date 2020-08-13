@@ -1,20 +1,22 @@
 const mongoose = require('mongoose');
 
-const UserLikeSchema = mongoose.Schema({
+const UserLikesSchema = mongoose.Schema({
     idOfPeopleWhoLike:{
-        type:String,
-        required:false
-    },dateTime:{
-        type:Date,
-        required:Date.now
-    }
-});
+         type:String,
+         required:true
+     },dateTime:{
+         type:Date,
+         default:Date.now
+     }
+ });
+
+const likesModel = mongoose.model('userlikes',UserLikesSchema);
 
 const LikesSchema = mongoose.Schema({
     idOfPost:{
         type:String,
         required:true
-    },IOPWL:[{type: UserLikeSchema, ref: 'userlikes'}]
+    },IOPWL:[UserLikesSchema]
     
 });
 
