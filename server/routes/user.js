@@ -65,6 +65,8 @@ router.get('/login',async (req,res) => {
    
 });
 
+
+//@parameters : name,password,(email or number)
 //register using post request
 router.post('/register',async (req,res) => {
   //check if all fields are not empty
@@ -131,6 +133,8 @@ router.post('/register',async (req,res) => {
 
 });
 
+
+//@parameters : name or password or email or number
 //update users profile
 router.patch('/updateProfile',async (req,res) => {
     if(req.session.user){

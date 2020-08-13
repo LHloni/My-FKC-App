@@ -18,6 +18,8 @@ router.get('/logout',async (req,res) => {
      res.redirect('/');
     
 });
+
+
 //get all posts
 router.get('/',async (req,res) => {
     //we do not really care if user is logged in or not
@@ -39,6 +41,8 @@ router.get('/',async (req,res) => {
         }
  
 });
+
+//@parameters : userId
 //get all my post show 5 at a time using a limit next time
 router.get('/getMyPost',async (req,res) => {
         //check if user is logged in or not
@@ -52,8 +56,10 @@ router.get('/getMyPost',async (req,res) => {
                         return docs;
                     };
                 });
-                if(getMyPosts != null){
+                if(!isEmpty(getMyPosts)){
                     res.json(getMyPosts);
+                }else{
+                    res.json({message:"no posts found"});
                 }
                 
             }catch(err){
@@ -64,6 +70,8 @@ router.get('/getMyPost',async (req,res) => {
         }
         
 });
+
+//@parameters : title,productOrService,price,imageUrl
 //create a post
 router.post('/uploadpost',async (req,res) => {
     //check if logged in
@@ -117,6 +125,8 @@ router.post('/uploadpost',async (req,res) => {
         res.json({message:"You Not Logged In"});
     }
 });
+
+//@parameter : postId(_id)
 // delete my specified post
 router.delete('/deletePost',async (req,res) => {
     //check if logged in
@@ -150,6 +160,9 @@ router.delete('/deletePost',async (req,res) => {
         res.json({message:"You Not Logged In"});
     }
 });
+
+//@parameters : location or imageUrl or availability or title or
+// productOrService or price or description or operatingHoursForService
 // update a specific post
 router.patch('/updatePost',async (req,res) => {
      //check if logged in
@@ -229,191 +242,6 @@ router.patch('/updatePost',async (req,res) => {
     }
 });
 
-//liking a post
-router.patch('/likepost',async (req,res) => {
-    //check if logged in
-    if(req.session.user){
-
-            if(!isEmpty(req.session.user._id) && !isEmpty(req.body.postId) ){
-                  //adding user like/id to likes database
-                try{
-                    //retrive likes data to compare and see what needs to be updated
-                    const getSpecifiedLikes = await Likes.findOne({idOfPost:req.body.postId,_id:req.body._id},(err,docs) => {
-                        if( err || !docs) {
-                            res.json({message:"No data"});
-                        } else {    
-                            return docs;
-                        };
-                    });
-
-                    if(!isEmpty(getSpecifiedLikes)){
-                        
-                            //dont add or remove like initially
-                            let Add = false;
-                            let remove = false
-
-                            if(!isEmpty(getSpecifiedLikes.IOPWL)){
-
-                                for (let i = 0; i < getSpecifiedLikes.IOPWL.length; i++) {
-                                    //if user found then remove like aka unlike
-                                    if(getSpecifiedLikes.IOPWL[i].idOfPeopleWhoLike == req.session.user._id){
-                                        remove = true;
-                                        i = getSpecifiedLikes.IOPWL.length + 1;
-                                    }
-                                  }
-                                  //if user not found the add like aka like 
-                                  if(!remove) Add = true;
-
-                            }else{
-                                //if likes array empty then add a like
-                                Add = true;
-                            }
-                           
-                            //add like add from likes array
-                            if(Add){   
-                                const likesUpdates =  Likes.updateOne({idOfPost:getSpecifiedLikes.idOfPost,_id:getSpecifiedLikes._id},
-                                    {
-                                        $push :{
-                                            IOPWL : {idOfPeopleWhoLike : req.session.user._id,
-                                            dateTime : Date.now()}
-                                        },
-                                    },(err,docs) => {
-                                    if( err || !docs) {
-                                        res.json({message:"No data add"});
-                                    } else {    
-                                        res.json({message:"like added"});
-                                    };
-                                
-                                    });
-                                }
-                                //remove like remove from likes array
-                                if(remove && !isEmpty(getSpecifiedLikes.IOPWL)){   
-                                    const likesUpdates =  Likes.updateOne({idOfPost:getSpecifiedLikes.idOfPost,_id:getSpecifiedLikes._id},
-                                        {
-                                            $pull :{
-                                                IOPWL : {idOfPeopleWhoLike : req.session.user._id}
-                                            }
-                                        },(err,docs) => {
-                                        if( err || !docs) {
-                                            res.json({message:"No data removed"});
-                                        } else {    
-                                            res.json({message:"like removed"});
-                                        };
-                                    
-                                        });
-                                    }
-                        
-                    }
-                
-                }catch(err){
-                        
-                    res.json({message:err});
-                }
-            }else{
-                res.json({status:"Like Not Updated"});
-            }
-    }else{
-        res.json({message:"You Not Logged In"});
-    }
-});
-
-//add comment on a post
-router.patch('/commentpost',async (req,res) => {
-    //check if logged in
-    if(req.session.user){
-
-            if(!isEmpty(req.session.user._id) && !isEmpty(req.body.postId) ){
-                  //adding user comment/id to likes database
-                try{
-                    //retrive likes data to compare and see what needs to be updated
-                    const getSpecifiedComment = await Comments.findOne({idOfPost:req.body.postId,_id:req.body._id},(err,docs) => {
-                        if( err || !docs) {
-                            res.json({message:"No data added"});
-                        } else {    
-                           return docs;
-                        };
-                    });
-   
-                    if(!isEmpty(getSpecifiedComment)){
-                        //add comment to array 
-                        const saveComments = Comments.updateOne({idOfPost:getSpecifiedComment.idOfPost,_id:getSpecifiedComment._id},
-                            {
-                                $push :{
-                                    UIMC : {idOfUserCommenting: req.session.user._id,
-                                            message : req.body.message,
-                                            dateTime : Date.now()}
-                                },
-                            },(err,docs) => {
-                            if( err || !docs) {
-                                res.json({message:"No data add"});
-                            } else {    
-                                res.json({message:"comment added"});
-                            };
-                        
-                            });
-                          
-                }
-                
-                }catch(err){
-                        
-                    res.json({message:err});
-                }
-            }else{
-                res.json({status:"Comments Not Added"});
-            }
-    }else{
-        res.json({message:"You Not Logged In"});
-    }
-});
-
-//removing comment
-router.patch('/deletecommentpost',async (req,res) => {
-    //check if logged in
-    if(req.session.user){
-
-            if(!isEmpty(req.session.user._id) && !isEmpty(req.body.postId) ){
-                  //adding user comment/id and message to comments database
-                try{
-                    //retrive comment data to compare and see what needs to be updated
-                    const getSpecifiedComment = await Comments.findOne({idOfPost:req.body.postId,_id:req.body._id},(err,docs) => {
-                        if( err || !docs) {
-                            res.json({message:"No data added"});
-                        } else {    
-                           return docs;
-                        };
-                    });
-
-                    if(!isEmpty(getSpecifiedComment)){
-                        //add comment to array 
-                        const saveComments = Comments.updateOne({idOfPost:getSpecifiedComment.idOfPost,_id:getSpecifiedComment._id},
-                            {
-                                $pull :{
-                                    UIMC : {_id: req.body.commentId,
-                                        idOfUserCommenting : req.session.user._id
-                                        }
-                                },
-                            },(err,docs) => {
-                            if( err || !docs) {
-                                res.json({message:"No data add"});
-                            } else {    
-                                res.json({message:"comment removed"});
-                            };
-                        
-                            });
-                          
-                }
-                
-                }catch(err){
-                        
-                    res.json({message:err});
-                }
-            }else{
-                res.json({status:"Comments Not Removed"});
-            }
-    }else{
-        res.json({message:"You Not Logged In"});
-    }
-});
 //functions for create comments schema and likes schema
 
 async function createCommentsSchema(idOfPostVal){

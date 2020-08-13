@@ -15,8 +15,8 @@ require("dotenv/config");
 const postsRoute = require('./routes/posts');
 const userRoute = require('./routes/user');
 //const notificationsRoute = require('./routes/notifications');
-//const commentsRoute = require('./routes/comments');
-//const likesRoute = require('./routes/likes');
+const commentsRoute = require('./routes/comments');
+const likesRoute = require('./routes/likes');
 //const sessionRoute = require('./routes/session');
 
 //middleware for body parser
@@ -29,8 +29,8 @@ app.use(session({secret:process.env.SESSION_SECRET,resave:false,saveUninitialize
 app.use('/',postsRoute);
 app.use('/posts',postsRoute);
 app.use('/user',userRoute);
-//app.use('/comments',commentsRoute);
-//app.use('/likes',likesRoute);
+app.use('/comments',commentsRoute);
+app.use('/likes',likesRoute);
 //app.use('/session',sessionRoute);
 //app.use('/notifications',notificationsRoute);
 
