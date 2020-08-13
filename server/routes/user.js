@@ -67,7 +67,7 @@ router.get('/login',async (req,res) => {
 
 //register using post request
 router.post('/register',async (req,res) => {
-  
+  //check if all fields are not empty
     if(!isEmpty(req.body.name) &&
      !isEmpty(req.body.password) &&
      (!isEmpty(req.body.email) ||
@@ -81,8 +81,42 @@ router.post('/register',async (req,res) => {
         });
     
         try{
-            const saveUser = await user.save();
-            res.json({message:"success"});
+
+            //check if user exists or not
+            const getUserEmail = await User.findOne({email:req.body.email},
+                (err,docs) => {
+                if( err || !docs) {
+                 //   res.json({message:"No data"});
+                    return null;
+                } else {    
+                    return docs;
+                };
+            });
+
+            const getUserNumber = await User.findOne({number:req.body.number},
+                (err,docs) => {
+                if( err || !docs) {
+                  //  res.json({message:"No data"});
+                    return null;
+                } else {    
+                    return docs;
+                };
+            });
+
+            if((isEmpty(getUserEmail)) &&  isEmpty(getUserNumber)){
+                
+                const saveUser = await user.save((err,docs) => {
+                    if( err || !docs) {
+                        res.json({message:"Not added"});
+                    } else {    
+                        res.json({message:"success"});
+                    };
+                });
+            
+            }else{
+                res.json({message:"Not added User Already exits"});
+            }
+            
         }catch(err){
             //create verification code here
             res.json({message:err});
