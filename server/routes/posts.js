@@ -317,8 +317,54 @@ router.patch('/likepost',async (req,res) => {
     }
 });
 
-//commenting on a post
+//add comment on a post
+router.patch('/commentpost',async (req,res) => {
+    //check if logged in
+    if(req.session.user){
 
+            if(!isEmpty(req.session.user._id) && !isEmpty(req.body.postId) ){
+                  //adding user comment/id to likes database
+                try{
+                    //retrive likes data to compare and see what needs to be updated
+                    const getSpecifiedComment = await Comments.findOne({idOfPost:req.body.postId,_id:req.body._id},(err,docs) => {
+                        if( err || !docs) {
+                            res.json({message:"No data added"});
+                        } else {    
+                           return docs;
+                        };
+                    });
+   
+                    if(!isEmpty(getSpecifiedComment)){
+                        //add comment to array 
+                        const saveComments = Comments.updateOne({idOfPost:getSpecifiedComment.idOfPost,_id:getSpecifiedComment._id},
+                            {
+                                $push :{
+                                    UIMC : {idOfUserCommenting: req.session.user._id,
+                                            message : req.body.message,
+                                            dateTime : Date.now()}
+                                },
+                            },(err,docs) => {
+                            if( err || !docs) {
+                                res.json({message:"No data add"});
+                            } else {    
+                                res.json({message:"comment added"});
+                            };
+                        
+                            });
+                          
+                }
+                
+                }catch(err){
+                        
+                    res.json({message:err});
+                }
+            }else{
+                res.json({status:"Comments Not Added"});
+            }
+    }else{
+        res.json({message:"You Not Logged In"});
+    }
+});
 
 //functions for create comments schema and likes schema
 
