@@ -2,10 +2,11 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+//const bodyParser = require('body-parser'); // this thing does not work anymore
 const session = require('express-session')
 const cors = require('cors');
-require("dotenv/config");
+// require("dotenv/config");
+require("dotenv").config();
 
 //middleware for cors
 //app.use(cors());
@@ -20,7 +21,10 @@ const likesRoute = require('./routes/likes');
 //const sessionRoute = require('./routes/session');
 
 //middleware for body parser
-app.use(bodyParser.json());
+//app.use(bodyParser.json()); //does not work anymore
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 //middleware for express sessin
 app.use(session({secret:process.env.SESSION_SECRET,resave:false,saveUninitialized:true}));
 

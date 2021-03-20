@@ -1,0 +1,21 @@
+npm is the package manager for the Node JavaScript platform.
+
+npm init - <initializer> can be used to set up a new or existing npm package. 
+
+npm install express nodemon - The express framework is built on top of the node.js
+framework and helps in fast-tracking development of server-based applications.
+nodemon is a tool that helps develop node.js based applications by 
+automatically restarting the node application when file changes.
+
+package.json - hold our packages and details about the app.
+
+package.json > "scripts":{"start":"nodemon app.js"} - script that will help us run
+the app using nodemon.
+
+const express = require('express'); - this is how we import packages in node.js.
+
+
+const app = express(); - this is how you execute express and now you have 
+ability to create routes.
+
+app.listen(3000); - this is how we start a server and listen on port number 3000.

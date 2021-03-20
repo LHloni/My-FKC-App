@@ -70,6 +70,7 @@ router.get('/login',async (req,res) => {
 //register using post request
 router.post('/register',async (req,res) => {
   //check if all fields are not empty
+
     if(!isEmpty(req.body.name) &&
      !isEmpty(req.body.password) &&
      (!isEmpty(req.body.email) ||
