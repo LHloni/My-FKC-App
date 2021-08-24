@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 //const bodyParser = require('body-parser'); // this thing does not work anymore
-const session = require('express-session')
+const session = require('express-session');
 const cors = require('cors');
 // require("dotenv/config"); //either works fine
 require("dotenv").config();
