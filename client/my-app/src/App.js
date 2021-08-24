@@ -1,53 +1,99 @@
 //a component holding all the logic html,javasccript,css
-import React,{useState} from 'react';//creating a component
-import Hello from './Componets/Example';
-import Tweet from './Componets/Tweet';
-import MovieList from './Componets/MovieList';
-import Nav from './Componets/Nav';
-import {MovieProvider} from './Componets/MovieContext';
-import AddMovie from './Componets/AddMovie';
+import React,{useState,useEffect} from 'react';//creating a component
+// import Hello from './Componets/Example';
+// import Tweet from './Componets/Tweet';
+// import MovieList from './Componets/MovieList';
+// import Nav from './Componets/Nav';
+// import {MovieProvider} from './Componets/MovieContext';
+// import AddMovie from './Componets/AddMovie';
+import Posts from './fkcComponets/Posts';
+
+import Login from './fkcComponets/Login';
+
 //npm install react-router-dom // to use it for routing
-import ShopNavigation from './Componets/ShopNavigation';
-import About from './Componets/About';
-import Shop from './Componets/Shop';
-import ItemDetail from './Componets/ItemDetails';
+// import ShopNavigation from './Componets/ShopNavigation';
+// import About from './Componets/About';
+// import Shop from './Componets/Shop';
+// import ItemDetail from './Componets/ItemDetails';
 //keyword "as" is used to rename keywords
 //these imports will help with routing
+
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom';
+import './App.css';
+
+///////////////////////////////////////////////////FKC-APP
+
+function App(){
+  //useEffect load data after component mounts
+      //   useEffect(() => {
+      //     api.get('/').then(res => {
+      //       console.log(res.data);
+      //       //get,post,put,delete,patch etc
+      //       //let,res,await,async
+      //     })
+      // },[])
+   
+  
+    //the exact key word means only display a certain route if the path is
+    //exactly the one provide in the url and route path
+    return(
+      <Router>
+          <div className="App">
+            <fkcNavigation/>
+              <Switch>
+              <Route path="/fkcNavigation/Posts" exact="true" component={Posts} />
+                {/* <Route path="/fkcNavigation/Login" exact="true" component={Login} /> */}
+                {/* <Route path="/shop" exact="true" component={Shop} /> */}
+                {/* <Route path="/shop/:id" exact="true" component={ItemDetail} /> */}
+              </Switch>
+        </div>
+      </Router>
+    );
+    }
+////////////////////////////////////////////////////////////
+
 //switch will allow only one route to be displayed at a time
 //by stopping after finding the first match for the URL string 
 
-import './App.css';
+
 //3 - third React routing
-function App(){
+// function App(){
+// //useEffect load data after component mounts
+//       useEffect(() => {
+//         api.get('/').then(res => {
+//           console.log(res.data);
+//           //get,post,put,delete,patch etc
+//           //let,res,await,async
+//         })
+//     },[])
  
 
-  //the exact key word means only display a certain route if the path is
-  //exactly the one provide in the url and route path
-  return(
-    <Router>
-        <div className="App">
-          <ShopNavigation/>
-            <Switch>
-              <Route path="/" exact="true" component={Home} />
-              <Route path="/about" exact="true" component={About} />
-              <Route path="/shop" exact="true" component={Shop} />
-              <Route path="/shop/:id" exact="true" component={ItemDetail} />
-            </Switch>
-      </div>
-    </Router>
-  );
-  }
+//   //the exact key word means only display a certain route if the path is
+//   //exactly the one provide in the url and route path
+//   return(
+//     <Router>
+//         <div className="App">
+//           <ShopNavigation/>
+//             <Switch>
+//               <Route path="/" exact="true" component={Home} />
+//               <Route path="/about" exact="true" component={About} />
+//               <Route path="/shop" exact="true" component={Shop} />
+//               <Route path="/shop/:id" exact="true" component={ItemDetail} />
+//             </Switch>
+//       </div>
+//     </Router>
+//   );
+//   }
   // /shop/:id call a route with a specific id
 
-  const Home = () => {
+  // const Home = () => {
  
-    return(
-        <div className="App">
-          <h1>Home</h1>
-      </div>
-    );
-    }
+  //   return(
+  //       <div className="App">
+  //         <h1>Home</h1>
+  //     </div>
+  //   );
+  //   }
 
 
 

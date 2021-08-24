@@ -8,7 +8,7 @@ function Shop(){
             fetchItems();
     },[]);
 
-    const [items,setItems] = useState([]);
+    const [items,setItems] = useState(items = "nname");
 
 //fetch from a database/API
     const fetchItems = async () => {
