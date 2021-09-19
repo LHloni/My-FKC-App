@@ -36,7 +36,7 @@ router.patch('/likepost',async (req,res) => {
                                         i = getSpecifiedLikes.IOPWL.length + 1;
                                     }
                                   }
-                                  //if user not found the add like aka like 
+                                  //if user not found then add like aka like 
                                   if(!remove) Add = true;
 
                             }else{
