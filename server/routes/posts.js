@@ -81,6 +81,7 @@ router.post('/uploadpost',async (req,res) => {
         !isEmpty(req.body.productOrService) &&
         !isEmpty(req.body.price) &&
         !isEmpty(req.body.imageUrl)){
+            
         const posts = new Posts({
             userId:req.session.user._id,
             title:req.body.title,
@@ -139,7 +140,16 @@ router.delete('/deletePost',async (req,res) => {
                         if( err || !docs) {
                             res.json({message:"No data"});
                         } else {    
-                            res.json({message:"post deleted"});
+                            
+                            //delete comments and likes related to post
+
+                            let message = "post deleted";
+                            
+                            if(!deleteCommentsSchema(req.body._id) || !deleteLikesSchema(req.body._id)){
+                                message += ",comment and like schema not deleted";
+                            }
+                            
+                            res.json({message:message});
                             
                             return docs;
                         };
@@ -285,6 +295,45 @@ async function createLikesSchema(idOfPostVal){
         return false;
     } 
 };
+
+//functions for deleting likes and comments schema
+async function deleteCommentsSchema(idOfPostVal){
+
+    try{
+
+        await Comments.deleteOne({idOfPost:idOfPostVal},(err,docs) => {
+            if( err || !docs) {
+                return false;
+            } else {    
+                return true;
+            };
+            
+        });
+
+    
+    }catch(err){
+        return false;
+    } 
+};
+
+async function deleteLikesSchema(idOfPostVal){
+
+    try{
+
+        await Likes.deleteOne({idOfPost:idOfPostVal},(err,docs) => {
+            if( err || !docs) {
+                return false;
+            } else {    
+                return true;
+            };
+            
+        });
+        
+    }catch(err){
+        return false;
+    } 
+};
+
 //helper functions
 function isEmpty(val){
     return (val === undefined || val == null || val.length <= 0) ? true : false;
