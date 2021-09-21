@@ -41,8 +41,8 @@ function App(){
           <div className="App">
             <fkcNavigation/>
               <Switch>
-              <Route path="/fkcNavigation/Posts" exact="true" component={Posts} />
-                {/* <Route path="/fkcNavigation/Login" exact="true" component={Login} /> */}
+              <Route path={["/fkcNavigation/login","/login"]}  exact="true" component={Login} />
+              {/* <Route path="/fkcNavigation/Posts" exact="true" component={Posts} /> */}
                 {/* <Route path="/shop" exact="true" component={Shop} /> */}
                 {/* <Route path="/shop/:id" exact="true" component={ItemDetail} /> */}
               </Switch>
