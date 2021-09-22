@@ -9,6 +9,10 @@ class fkcDataService{
         password: credentials.password}});
     }
 
+    register(data){
+        return http.post("/user/register",data);
+    }
+
 
 }
 

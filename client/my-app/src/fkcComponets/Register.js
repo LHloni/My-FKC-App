@@ -1,5 +1,6 @@
 import React from 'react';
 import "../App.css";
+import fkcDataService from "../service/fkcDataService";
 
 //signup imports
 import Avatar from '@mui/material/Avatar';
@@ -37,10 +38,19 @@ function About(){
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         // eslint-disable-next-line no-console
-        console.log({
-          email: data.get('email'),
-          password: data.get('password'),
-        });
+
+        fkcDataService.register({
+            name: data.get('firstName'),
+            numberPhone: data.get('numberPhone'),
+            email: data.get('email'),
+            password: data.get('password')
+          }).then((res) => {
+            console.log(res.data);
+          }
+    
+          ).catch((err) => {
+            console.log(err);
+          });
       };
 
 
