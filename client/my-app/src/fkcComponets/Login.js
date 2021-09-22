@@ -38,26 +38,27 @@ function Login(){
 
 //use axios
 //useEffect load data after component mounts
-    useEffect(() => {
-
-      fkcDataService.login().then((res) => {
-        console.log(res.data);
-      }
-
-      ).catch((err) => {
-        console.log(err.data);
-      });
-
-    },[]);
+    // useEffect(() => {
+// 
+    // },[]);
 
     const handleSubmit = (event) => {
       event.preventDefault();
       const data = new FormData(event.currentTarget);
       // eslint-disable-next-line no-console
-      console.log({
-        email: data.get('email'),
-        password: data.get('password'),
+     
+
+      fkcDataService.login({
+        emailOrNumber: data.get('emailOrNumber'),
+        password: data.get('password')
+      }).then((res) => {
+        console.log(res.data);
+      }
+
+      ).catch((err) => {
+        console.log(err);
       });
+
     };
 
 
@@ -86,8 +87,8 @@ function Login(){
               required
               fullWidth
               id="email"
-              label="Email Address"
-              name="email"
+              label="Email Address or Number Phone"
+              name="emailOrNumber"
               autoComplete="email"
               autoFocus
             />

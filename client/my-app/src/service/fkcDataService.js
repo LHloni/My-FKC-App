@@ -2,8 +2,11 @@ import http from "../http-common";
 
 class fkcDataService{
 
-    login(){
-        return http.get("/user/login");
+    login(credentials){
+        // console.log("HERE");
+        // console.log( credentials.emailOrNumber+" , "+credentials.password);
+        return http.get("/user/login",{params : { emailOrNumber: credentials.emailOrNumber,
+        password: credentials.password}});
     }
 
 
