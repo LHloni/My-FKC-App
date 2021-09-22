@@ -52,7 +52,7 @@ function Login(){
         emailOrNumber: data.get('emailOrNumber'),
         password: data.get('password')
       }).then((res) => {
-        console.log(res.data);
+        console.log(res.data.message);
       }
 
       ).catch((err) => {

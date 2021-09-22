@@ -9,6 +9,7 @@ import React,{useState,useEffect} from 'react';//creating a component
 import Posts from './fkcComponets/Posts';
 
 import Login from './fkcComponets/Login';
+import Register from './fkcComponets/Register';
 
 //npm install react-router-dom // to use it for routing
 // import ShopNavigation from './Componets/ShopNavigation';
@@ -42,6 +43,7 @@ function App(){
             <fkcNavigation/>
               <Switch>
               <Route path={["/fkcNavigation/login","/login"]}  exact="true" component={Login} />
+              <Route path={["/fkcNavigation/register","/register","/fkcNavigation/signup","/signup"]}  exact="true" component={Register} />
               {/* <Route path="/fkcNavigation/Posts" exact="true" component={Posts} /> */}
                 {/* <Route path="/shop" exact="true" component={Shop} /> */}
                 {/* <Route path="/shop/:id" exact="true" component={ItemDetail} /> */}
